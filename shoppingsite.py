@@ -92,18 +92,19 @@ def add_to_cart(melon_id):
     cart'."""
 
     melon = melons.get_by_id(melon_id)
+    # shopping_cart = {melon.name:melon.price}
     shopping_cart = {}
  
 
-    if shopping_cart:
-        if melon_id not in shopping_cart.key(): 
-            shopping_cart[melon.melon_id] = 1
-        else:
-            shopping_cart[melon.melon_id] = value + 1
-    # else:
-    #     set_session()  #function??????
+    if melon in shopping_cart.key(): 
+        shopping_cart[melon.melon_id] = value + 1
+    else:
+        shopping_cart[melon.melon_id] = 1
+        flash('Look at dem melons')
 
-    flash('Look at dem melons')
+    # else:
+    #     set_session()  #function to save the session info????
+
 
     # The logic here should be something like:
     #
@@ -114,7 +115,7 @@ def add_to_cart(melon_id):
     # - flash a success message
     # - redirect the user to the cart page
 
-    return render_template("cart.html")
+    return render_template("cart.html", display_melon=melon.name)
 
 
 @app.route("/login", methods=["GET"])
