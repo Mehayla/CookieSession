@@ -60,9 +60,8 @@ def show_melon(melon_id):
 def show_shopping_cart():
     """Display content of shopping cart."""
 
-    asdf = request.argv['']
-    test_cart = session['asdf']
-    print()
+    # BLAH = request.argv['shopping_cart']
+    # test_cart = session['asdf']
 
 
     # The logic here will be something like:
@@ -84,7 +83,6 @@ def show_shopping_cart():
 
     return render_template("cart.html")
 
-
 @app.route("/add_to_cart/<melon_id>")
 def add_to_cart(melon_id):
     """Add a melon to cart and redirect to shopping cart page.
@@ -93,7 +91,19 @@ def add_to_cart(melon_id):
     page and display a confirmation message: 'Melon successfully added to
     cart'."""
 
-    # TODO: Finish shopping cart functionality
+    melon = melons.get_by_id(melon_id)
+    shopping_cart = {}
+ 
+
+    if shopping_cart:
+        if melon_id not in shopping_cart.key(): 
+            shopping_cart[melon.melon_id] = 1
+        else:
+            shopping_cart[melon.melon_id] = value + 1
+    # else:
+    #     set_session()  #function??????
+
+       flash('Look at dem melons')
 
     # The logic here should be something like:
     #
@@ -104,7 +114,7 @@ def add_to_cart(melon_id):
     # - flash a success message
     # - redirect the user to the cart page
 
-    return "Oops! This needs to be implemented!"
+    return render_template("cart.html")
 
 
 @app.route("/login", methods=["GET"])
